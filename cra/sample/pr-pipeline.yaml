@@ -62,7 +62,7 @@ spec:
       taskRef:
         name: git-clone-repo
       workspaces:
-        - name: artifacts
+        - name: output
           workspace: artifacts
         - name: secrets
           workspace: artifacts
