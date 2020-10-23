@@ -60,7 +60,7 @@ spec:
       runAfter:
         - code-fetch-credentials
       taskRef:
-        name: git-clone
+        name: git-clone-repo
       workspaces:
         - name: artifacts
           workspace: artifacts
