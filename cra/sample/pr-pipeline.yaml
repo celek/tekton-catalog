@@ -9,6 +9,9 @@ spec:
       description: the git repo
     - name: branch
       description: branch
+    - name: revision
+      description: the git revision/commit for the git repo
+      default: ""      
     - name: target-branch
       description: target branch
     - name: api-key
