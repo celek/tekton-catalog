@@ -15,7 +15,7 @@ spec:
       description: target commit id      
     - name: repository-integration
       description: the repo integration name
-    - name: api-key
+    - name: apikey
       description: the ibmcloud api key
     - name: commit-id
       description: commit id
@@ -53,7 +53,7 @@ spec:
         name: cd-secret
       type: Opaque
       stringData:
-        API_KEY: $(params.api-key)
+        API_KEY: $(params.apikey)
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
@@ -72,8 +72,8 @@ spec:
             value: $(params.branch)
           - name: target-branch
             value: $(params.target-branch)
-          - name: api-key
-            value: $(params.api-key)
+          - name: apikey
+            value: $(params.apikey)
           - name: repository-integration
             value: $(params.repository-integration)
           - name: commit-id

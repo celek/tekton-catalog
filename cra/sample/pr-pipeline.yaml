@@ -14,7 +14,7 @@ spec:
       default: ""      
     - name: target-branch
       description: target branch
-    - name: api-key
+    - name: apikey
       description: The IBM Cloud API key is used to access the IBM Cloud Kubernetes
         Service API and interact with the cluster. You can obtain your API key with
         'bx iam api-key-create' or via the console at https://cloud.ibm.com/iam#/apikeys
@@ -57,7 +57,7 @@ spec:
         - name: continuous-delivery-context-secret
           value: "secure-properties"
         - name: ibmcloud-apikey-secret-key
-          value: $(params.api-key)
+          value: "apikey"
         - name: repository
           value: $(tasks.extract-repository-url.results.extracted-value)
         - name: branch
@@ -87,7 +87,7 @@ spec:
         - name: commit-timestamp
           value: $(params.commit-timestamp)
         - name: ibmcloud-api-key
-          value: $(params.api-key)
+          value: $(params.apikey)
         - name: pipeline-debug
           value: $(params.pipeline-debug)
         - name: directory-name
@@ -137,7 +137,7 @@ spec:
         - name: git-api-token-key
           value: git-token
         - name: ibmcloud-api-key
-          value: $(params.api-key)
+          value: $(params.apikey)
         - name: scm-type
           value: $(params.scm-type)
         - name: project-id
@@ -211,7 +211,7 @@ spec:
         - name: directory-name
           value: ""
         - name: ibmcloud-api-key
-          value: $(params.api-key)
+          value: $(params.apikey)
         - name: scm-type
           value: $(params.scm-type)
         - name: project-id
@@ -287,7 +287,7 @@ spec:
         - name: target-commit-id
           value: $(params.target-commit-id)      
         - name: ibmcloud-api-key
-          value: $(params.api-key)
+          value: $(params.apikey)
         - name: scm-type
           value: $(params.scm-type)
         - name: project-id
