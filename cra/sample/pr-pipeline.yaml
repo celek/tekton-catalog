@@ -38,45 +38,37 @@ spec:
     - name: artifacts
 
   tasks:
-    - name: code-fetch-credentials
+    - name: extract-repository-url
       taskRef:
-        name: git-get-credentials
-      workspaces:
-        - name: artifacts
-          workspace: artifacts
-        - name: secrets
-          workspace: artifacts
+        name: toolchain-extract-value
       params:
-        - name: repository
-          value: $(params.repository)
-        - name: repository-integration
-          value: $(params.repository-integration)
-        - name: ibmcloud-api-key-secret-key
-          value: api-key
+        - name: expression
+          # if a params.repository is given, it takes precedence
+          value: '. as $toolchain | ["$(params.repository)"] | if .[0]=="" then $toolchain | .services[] | select(.toolchain_binding.name=="repo") | .dashboard_url else .[0] end'
         - name: pipeline-debug
-          value: $(params.pipeline-debug)
-
-    - name: code-fetch-code
-      runAfter:
-        - code-fetch-credentials
+          value: $(params.pipeline-debug)  
+    - name: git-clone
       taskRef:
         name: git-clone-repo
+      params:
+        - name: continuous-delivery-context-secret
+          value: "secure-properties"
+        - name: ibmcloud-apikey-secret-key
+          value: "api-key"
+        - name: repository
+          value: $(tasks.extract-repository-url.results.extracted-value)
+        - name: branch
+          value: $(params.branch)
+        - name: revision
+          value: $(params.revision)
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
       workspaces:
         - name: output
           workspace: artifacts
-      params:
-        - name: repository
-          value: $(params.repository)
-        - name: branch
-          value: $(params.branch)
-        - name: ibmcloud-apikey-secret-key
-          value: api-key          
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
-
     - name: cra-discovery-scan
       runAfter:
-        - code-fetch-code
+        - git-clone
       taskRef:
         name: cra-discovery
       workspaces:
@@ -84,7 +76,7 @@ spec:
           workspace: artifacts
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.branch)
         - name: commit-id
@@ -108,7 +100,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
@@ -132,7 +124,7 @@ spec:
           workspace: artifacts
       params:
         - name: repository
-          value: $(params.repository)
+          value:  $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.branch)
         - name: pr-url
@@ -160,7 +152,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
@@ -182,7 +174,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
@@ -206,7 +198,7 @@ spec:
           workspace: artifacts
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.branch)
         - name: pr-url
@@ -234,7 +226,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
@@ -256,7 +248,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
@@ -280,7 +272,7 @@ spec:
           workspace: artifacts          
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.branch)
         - name: pr-url
@@ -310,7 +302,7 @@ spec:
         name: git-set-commit-status
       params:
         - name: repository
-          value: $(params.repository)
+          value: $(tasks.extract-repository-url.results.extracted-value)
         - name: revision
           value: $(params.commit-id)
         - name: state
