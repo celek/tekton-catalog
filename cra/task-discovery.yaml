@@ -37,7 +37,7 @@ spec:
 
   steps:
     - name: discovery
-      image: icr.io/continuous_delivery/cra-discovery:main.1065
+      image: icr.io/continuous_delivery/cra-discovery:main.1060
       imagePullPolicy: Always
       workingDir: "/artifacts"
       command: ["/bin/sh", "-c"]
