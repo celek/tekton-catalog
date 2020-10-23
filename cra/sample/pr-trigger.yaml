@@ -29,8 +29,6 @@ spec:
       description: PR number  
     - name: pr-name
       description: PR name           
-    - name: artifactory-dockerconfigjson
-      description: dockerconfigjson for pullsecrets
     - name: scm-type
       description: source code type used (github, github-ent, gitlab)
     - name: project-id
@@ -49,19 +47,6 @@ spec:
         volumeMode: Filesystem
         accessModes:
           - ReadWriteOnce
-    - apiVersion: v1
-      kind: Secret
-      data:
-        .dockerconfigjson: $(params.artifactory-dockerconfigjson)
-      metadata:
-        name: artifactory-pull-secret
-      type: kubernetes.io/dockerconfigjson
-    - apiVersion: v1
-      kind: ServiceAccount
-      imagePullSecrets:
-        - name: artifactory-pull-secret
-      metadata:
-        name: sa-pullsecret
     - apiVersion: v1
       kind: Secret
       metadata:
