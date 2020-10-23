@@ -51,7 +51,7 @@ spec:
           value: $(params.repository)
         - name: repository-integration
           value: $(params.repository-integration)
-        - name: ibmcloud-apikey-secret-key
+        - name: ibmcloud-api-key-secret-key
           value: api-key
         - name: pipeline-debug
           value: $(params.pipeline-debug)
@@ -71,8 +71,8 @@ spec:
           value: $(params.repository)
         - name: branch
           value: $(params.branch)
-        - name: git-user
-          value: $(tasks.code-fetch-credentials.results.git-auth-user)
+        - name: ibmcloud-apikey-secret-key
+          value: api-key          
         - name: pipeline-debug
           value: $(params.pipeline-debug)
 
