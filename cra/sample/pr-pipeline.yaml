@@ -64,8 +64,6 @@ spec:
       workspaces:
         - name: output
           workspace: artifacts
-        - name: secrets
-          workspace: artifacts
       params:
         - name: repository
           value: $(params.repository)
