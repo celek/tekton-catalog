@@ -57,7 +57,7 @@ spec:
         - name: continuous-delivery-context-secret
           value: "secure-properties"
         - name: ibmcloud-apikey-secret-key
-          value: "api-key"
+          value: $(params.api-key)
         - name: repository
           value: $(tasks.extract-repository-url.results.extracted-value)
         - name: branch
