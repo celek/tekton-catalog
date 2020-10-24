@@ -30,7 +30,8 @@ spec:
     - name: pr-name
       description: PR name 
     - name: artifactory-dockerconfigjson
-      description: dockerconfigjson for pullsecrets                
+      description: dockerconfigjson for pullsecrets   
+      default: "{}"             
     - name: scm-type
       description: source code type used (github, github-ent, gitlab)
     - name: project-id
