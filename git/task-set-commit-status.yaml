@@ -360,7 +360,7 @@ spec:
         def pretty_print_POST(req):
             print('{}\n{}\r\n{}\r\n\r\n{}'.format(
             '-----------START-----------',
-            req.method + ' ' + req.url,
+            req.method + ' ' + status_url,
             '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
             req.body,
             ))
