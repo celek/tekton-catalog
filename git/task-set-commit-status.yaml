@@ -358,11 +358,11 @@ spec:
         req.add_header("User-Agent", "TektonCD, the peaceful cat")
         
         def pretty_print_POST(req):
-            print('{}\n{}\r\n{}\r\n\r\n'.format(
+            print('{}\n{}\r\n{}\r\n{}\r\n\r\n'.format(
             '-----------START-----------',
-            req.method + ' ' + status_url,
+            req.method + ' ' + req.full_url,
             '\r\n'.join('H {}: {}'.format(k, v) for k, v in req.headers.items()),
-            '\r\n'.join('Param {}: {}'.format(k, v) for k, v in req.data.items()),            
+            req.data,            
             ))
         if os.environ["PIPELINE_DEBUG"] == "1":
           pretty_print_POST(req)
