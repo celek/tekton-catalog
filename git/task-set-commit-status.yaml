@@ -356,6 +356,16 @@ spec:
           )
 
         req.add_header("User-Agent", "TektonCD, the peaceful cat")
+        
+        def pretty_print_POST(req):
+            print('{}\n{}\r\n{}\r\n\r\n{}'.format(
+            '-----------START-----------',
+            req.method + ' ' + req.url,
+            '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+            req.body,
+            ))
+        if os.environ["PIPELINE_DEBUG"] == "1":
+          pretty_print_POST(req)
 
         with urllib.request.urlopen(req) as resp:
           if not str(resp.status).startswith("2"):
