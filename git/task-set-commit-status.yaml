@@ -361,7 +361,8 @@ spec:
             print('{}\n{}\r\n{}\r\n\r\n'.format(
             '-----------START-----------',
             req.method + ' ' + status_url,
-            '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+            '\r\n'.join('H {}: {}'.format(k, v) for k, v in req.headers.items()),
+            '\r\n'.join('Param {}: {}'.format(k, v) for k, v in data),            
             ))
         if os.environ["PIPELINE_DEBUG"] == "1":
           pretty_print_POST(req)
