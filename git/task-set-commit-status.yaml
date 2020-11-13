@@ -362,7 +362,7 @@ spec:
             '-----------START-----------',
             req.method + ' ' + status_url,
             '\r\n'.join('H {}: {}'.format(k, v) for k, v in req.headers.items()),
-            '\r\n'.join('Param {}: {}'.format(k, v) for k, v in data),            
+            '\r\n'.join('Param {}: {}'.format(k, v) for k, v in req.data.items()),            
             ))
         if os.environ["PIPELINE_DEBUG"] == "1":
           pretty_print_POST(req)
